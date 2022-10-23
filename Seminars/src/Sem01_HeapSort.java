@@ -1,4 +1,4 @@
-public class HeapSort {
+public class Sem01_HeapSort {
     public static void sort(int[] arr) {
         int n = arr.length;
 
