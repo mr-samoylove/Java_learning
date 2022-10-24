@@ -1,20 +1,27 @@
 public class Main {
+
     public static void main(String[] args) {
+        int[][] mat =
+                {
+                        {1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
+                        {0, 1, 1, 1, 1, 1, 0, 1, 0, 1},
+                        {0, 0, 1, 0, 1, 1, 1, 0, 0, 1},
+                        {1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
+                        {0, 0, 0, 1, 0, 0, 0, 1, 0, 1},
+                        {1, 0, 1, 1, 1, 0, 0, 1, 1, 0},
+                        {0, 0, 0, 0, 1, 0, 0, 1, 0, 1},
+                        {0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
+                        {1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
+                        {0, 0, 1, 0, 0, 1, 1, 0, 0, 1},
+                };
 
-        /* ЗАДАНИЕ 1 */
+        int min_dist = Sem03_WaveAlgorithm.findShortestPath(mat, 0, 0, 7, 2);
 
-        // Количество дисков
-        int n = 4;
-        // в функцию передается кол-во дисков и названия колонн
-        // Функция печатает в консоль алгоритм решения Ханойской башни при заданном колличестве дисков
-        Sem02_HanoiTower.getAlgorithm(n, 'A', 'C', 'B');
-
-        /* ЗАДАНИЕ 2 */
-        System.out.print("\n\nИсходный массив: ");
-        int[] arr = { 12, 11, 13, 5, 6 };
-        for (int j : arr) System.out.print(j + " ");
-        Sem02_InsersionSort.insersionSort(arr);
-        System.out.print("\nОтсортированный массив: ");
-        for (int j : arr) System.out.print(j + " ");
+        if (min_dist != -1) {
+            System.out.println("The shortest path from source to destination " +
+                    "has length " + min_dist);
+        } else {
+            System.out.println("Destination cannot be reached from source");
+        }
     }
 }
