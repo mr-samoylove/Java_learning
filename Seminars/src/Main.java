@@ -1,27 +1,14 @@
 public class Main {
-
     public static void main(String[] args) {
-        int[][] mat =
-                {
-                        {1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
-                        {0, 1, 1, 1, 1, 1, 0, 1, 0, 1},
-                        {0, 0, 1, 0, 1, 1, 1, 0, 0, 1},
-                        {1, 0, 1, 1, 1, 0, 1, 1, 0, 1},
-                        {0, 0, 0, 1, 0, 0, 0, 1, 0, 1},
-                        {1, 0, 1, 1, 1, 0, 0, 1, 1, 0},
-                        {0, 0, 0, 0, 1, 0, 0, 1, 0, 1},
-                        {0, 1, 1, 1, 1, 1, 1, 1, 0, 0},
-                        {1, 1, 1, 1, 1, 0, 0, 1, 1, 1},
-                        {0, 0, 1, 0, 0, 1, 1, 0, 0, 1},
-                };
+        int[] arr = { 10, 7, 8, 9, 1, 5, 155, 2523, 523, 16, 865, 4637, 345 };
 
-        int min_dist = Sem03_WaveAlgorithm.findShortestPath(mat, 0, 0, 7, 2);
+        System.out.println("До сортировки: ");
+        for (int j : arr) System.out.print(j + " ");
+        System.out.println();
 
-        if (min_dist != -1) {
-            System.out.println("The shortest path from source to destination " +
-                    "has length " + min_dist);
-        } else {
-            System.out.println("Destination cannot be reached from source");
-        }
+        Sem04_QuickSort.quickSort(arr, 0, arr.length - 1);
+
+        System.out.println("После сортировки: ");
+        for (int j : arr) System.out.print(j + " ");
     }
 }
