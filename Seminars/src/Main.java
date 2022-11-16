@@ -1,14 +1,19 @@
 public class Main {
     public static void main(String[] args) {
-        int[] arr = { 10, 7, 8, 9, 1, 5, 155, 2523, 523, 16, 865, 4637, 345 };
+        Sem05_Tree tree = new Sem05_Tree();
 
-        System.out.println("До сортировки: ");
-        for (int j : arr) System.out.print(j + " ");
-        System.out.println();
+        tree.insertNode(6);
+        tree.insertNode(8);
+        tree.insertNode(5);
+        tree.insertNode(8);
+        tree.insertNode(2);
+        tree.insertNode(10);
+        tree.insertNode(9);
+        tree.insertNode(11);
+        tree.insertNode(7);
+        tree.insertNode(4);
+        tree.insertNode(1);
 
-        Sem04_QuickSort.quickSort(arr, 0, arr.length - 1);
-
-        System.out.println("После сортировки: ");
-        for (int j : arr) System.out.print(j + " ");
+        tree.printTree();
     }
 }
