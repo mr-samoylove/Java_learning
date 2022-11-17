@@ -7,6 +7,10 @@ class Sem05_Tree {
         rootNode = null;
     }
 
+    public Sem05_Node getRootNode() {
+        return rootNode;
+    }
+
     public Sem05_Node findNodeByValue(int value) {
         Sem05_Node currentNode = rootNode;
         while (currentNode.getValue() != value) {
@@ -128,42 +132,4 @@ class Sem05_Tree {
         return heirNode;
     }
 
-    public void printTree() {
-        Stack<Sem05_Node> globalStack = new Stack<>(); // общий стек для значений дерева
-        globalStack.push(rootNode);
-        int gaps = 32; // начальное значение расстояния между элементами
-        String separator = "-----------------------------------------------------------------";
-        System.out.println(separator);
-        boolean isRowEmpty = false;
-        while (!isRowEmpty) {
-            Stack<Sem05_Node> localStack = new Stack<>(); // локальный стек для задания потомков элемента
-            isRowEmpty = true;
-
-            for (int j = 0; j < gaps; j++)
-                System.out.print(' ');
-            while (!globalStack.isEmpty()) {
-                Sem05_Node temp = (Sem05_Node) globalStack.pop();
-                if (temp != null) {
-                    System.out.print(temp.getValue());
-                    localStack.push(temp.getLeftChild()); // сохраняем в локальный стек наследников текущего элемента
-                    localStack.push(temp.getRightChild());
-                    if (temp.getLeftChild() != null ||
-                            temp.getRightChild() != null)
-                        isRowEmpty = false;
-                }
-                else {
-                    System.out.print("__");// - если элемент пустой
-                    localStack.push(null);
-                    localStack.push(null);
-                }
-                for (int j = 0; j < gaps * 2 - 2; j++)
-                    System.out.print(' ');
-            }
-            System.out.println();
-            gaps /= 2;// при переходе на следующий уровень расстояние между элементами каждый раз уменьшается
-            while (!localStack.isEmpty())
-                globalStack.push(localStack.pop()); // перемещаем все элементы из локального стека в глобальный
-        }
-        System.out.println(separator);
-    }
 }
