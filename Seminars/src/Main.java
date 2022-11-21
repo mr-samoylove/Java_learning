@@ -1,35 +1,35 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_RED = "\u001B[31m";
-        Sem05_Tree tree = new Sem05_Tree();
 
-        tree.insertNode(6);
-        tree.insertNode(8);
-        tree.insertNode(5);
-        tree.insertNode(8);
-        tree.insertNode(2);
-        tree.insertNode(10);
-        tree.insertNode(9);
-        tree.insertNode(11);
-        tree.insertNode(7);
-        tree.insertNode(4);
-        tree.insertNode(1);
+        // создаем по одному представителю каждого из 7 классов и выводим их в консоль
+        ArrayList<BaseNpc> oneOfEachCharacter = new ArrayList<>(Arrays.asList(
+                new Archer(), new Peasant(), new Bandit(),
+                new Sniper(), new Priest(), new Wizard(), new Spearman()));
+        oneOfEachCharacter.forEach(System.out::println);
 
-        var root = tree.getRootNode();
-        System.out.println(ANSI_RED + "Вывод в ширину" + ANSI_RESET);
-        Sem06_TreePrinter.printTreeBreadthFirst(root);
+        // создаем 50 рандомных персонажей
+        Random r = new Random();
+        ArrayList<BaseNpc> fiftyRandomCharacters = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            switch (r.nextInt(1, 8)) {
+                case 1 -> fiftyRandomCharacters.add(new Archer());
+                case 2 -> fiftyRandomCharacters.add(new Peasant());
+                case 3 -> fiftyRandomCharacters.add(new Bandit());
+                case 4 -> fiftyRandomCharacters.add(new Sniper());
+                case 5 -> fiftyRandomCharacters.add(new Priest());
+                case 6 -> fiftyRandomCharacters.add(new Wizard());
+                case 7 -> fiftyRandomCharacters.add(new Spearman());
+            }
+        }
 
-        System.out.println(ANSI_RED + "Вывод принципом NLR (pre-order)" + ANSI_RESET);
-        Sem06_TreePrinter.PrintTreePreOrder(root);
+        // выводим каждого лучника
         System.out.println();
-
-        System.out.println(ANSI_RED + "Вывод принципом LRN (post-order)" + ANSI_RESET);
-        Sem06_TreePrinter.PrintTreePostOrder(root);
-        System.out.println();
-
-        System.out.println(ANSI_RED + "Вывод принципом LNR (in-order)" + ANSI_RESET);
-        Sem06_TreePrinter.PrintTreeInOrder(root);
-        System.out.println();
+        BaseNpc.printAllOfSpecificType(fiftyRandomCharacters, "Archer");
     }
+
+
 }
