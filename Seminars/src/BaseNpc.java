@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class BaseNpc {
+public abstract class BaseNpc implements BaseBehaviour {
     private static int staticCounterID = 1;
 
     protected int npcID;
@@ -9,25 +8,26 @@ public abstract class BaseNpc {
     protected int protection;
     protected int shots;
     protected int[] damage;
+    protected double maxHealth;
     protected double health;
     protected int speed;
     protected boolean delivery;
     protected boolean magic;
 
-    public BaseNpc(int attack, int protection, int shots, int[] damage, double health, int speed, boolean delivery, boolean magic) {
+    public BaseNpc(int attack, int protection, int shots, int[] damage, double maxHealth, int speed, boolean delivery, boolean magic) {
         this.npcID = staticCounterID++;
         this.attack = attack;
         this.protection = protection;
         this.shots = shots;
         this.damage = damage;
-        this.health = health;
+        this.maxHealth = maxHealth;
+        this.health = maxHealth;
         this.speed = speed;
         this.delivery = delivery;
         this.magic = magic;
     }
 
-    @Override
-    public String toString() {
+    public String getInfo() {
         return  "npcID=" + npcID +
                 ", type=" + this.getClass().getName() +
                 ", attack=" + attack +
@@ -35,23 +35,17 @@ public abstract class BaseNpc {
                 ", shots=" + shots +
                 ", damage=" + Arrays.toString(damage) +
                 ", health=" + health +
+                ", maxHealth=" + maxHealth +
                 ", speed=" + speed +
                 ", delivery=" + delivery +
                 ", magic=" + magic;
     }
 
-
-    /**
-     * @param list список из персонажей
-     * @param typename название типа в виде String, например "Archer" или "Bandit"
-     */
-    public static void printAllOfSpecificType(ArrayList<BaseNpc> list, String typename){
-        for (BaseNpc npc : list) {
-            if (npc.getClass().getName().equals(typename)) {
-                System.out.println(npc);
-            }
-        }
+    @Override
+    public String toString() {
+        return this.getInfo();
     }
+
 
     //region ---Getters---
     public int getNpcID() {
@@ -72,6 +66,10 @@ public abstract class BaseNpc {
 
     public int[] getDamage() {
         return damage;
+    }
+
+    public double getMaxHealth() {
+        return maxHealth;
     }
 
     public double getHealth() {
@@ -106,6 +104,10 @@ public abstract class BaseNpc {
 
     public void setDamage(int[] damage) {
         this.damage = damage;
+    }
+
+    public void setMaxHealth(double maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public void setHealth(double health) {
