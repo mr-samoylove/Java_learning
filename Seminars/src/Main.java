@@ -27,7 +27,7 @@ public class Main {
             String temp = scanner.nextLine();
             if (temp.equals("Q") || temp.equals("q")){
                 System.exit(0);
-            };
+            }
         }
     }
 
@@ -46,7 +46,7 @@ public class Main {
                 case 1 -> new Peasant(i, 9, team2);
                 case 2 -> new Lancer(i, 9, team2);
                 case 3 -> new Xbowman(i, 9, team2);
-                case 4 -> new Priest(i, 9, team2);
+                case 4 -> new Monk(i, 9, team2);
             }
         }
     }

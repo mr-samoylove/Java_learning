@@ -1,8 +1,8 @@
 package Characters;
 
-public class Priest extends BaseNpc {
-    public Priest(int line, int column, Team team) {
-        super(new Coordinates(line, column), 'P', 12, 7, 0, new int[]{-4, -4}, 30, 5, false, true, team);
+public class Monk extends BaseNpc {
+    public Monk(int line, int column, Team team) {
+        super(new Coordinates(line, column), 'M', 12, 7, 0, new int[]{-4, -4}, 30, 5, false, true, team);
     }
 
     @Override
