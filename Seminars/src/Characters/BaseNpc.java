@@ -1,8 +1,13 @@
+package Characters;
+
 import java.util.Arrays;
 
 public abstract class BaseNpc implements BaseBehaviour {
     private static int staticCounterID = 1;
+    private final char typeSymbol;
+    protected Team team;
 
+    protected Coordinates coordinates;
     protected int npcID;
     protected int attack;
     protected int protection;
@@ -14,8 +19,11 @@ public abstract class BaseNpc implements BaseBehaviour {
     protected boolean delivery;
     protected boolean magic;
 
-    public BaseNpc(int attack, int protection, int shots, int[] damage, double maxHealth, int speed, boolean delivery, boolean magic) {
+    public BaseNpc(Coordinates coordinates, char typeSymbol, int attack, int protection, int shots,
+                   int[] damage, double maxHealth, int speed, boolean delivery, boolean magic, Team team) {
         this.npcID = staticCounterID++;
+        this.typeSymbol = typeSymbol;
+        this.coordinates = coordinates;
         this.attack = attack;
         this.protection = protection;
         this.shots = shots;
@@ -25,11 +33,14 @@ public abstract class BaseNpc implements BaseBehaviour {
         this.speed = speed;
         this.delivery = delivery;
         this.magic = magic;
+
+        this.team = team;
+        team.add(this);
     }
 
     public String getInfo() {
-        return  "npcID=" + npcID +
-                ", type=" + this.getClass().getName() +
+        return "npcID=" + npcID +
+                ", type=" + this.getClass().getSimpleName() +
                 ", attack=" + attack +
                 ", protection=" + protection +
                 ", shots=" + shots +
@@ -48,6 +59,19 @@ public abstract class BaseNpc implements BaseBehaviour {
 
 
     //region ---Getters---
+
+    public String getTeamColor() {
+        return team.teamColor;
+    }
+
+    public char getTypeSymbol() {
+        return typeSymbol;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
     public int getNpcID() {
         return npcID;
     }
@@ -90,6 +114,12 @@ public abstract class BaseNpc implements BaseBehaviour {
     //endregion
 
     //region ---Setters---
+
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public void setAttack(int attack) {
         this.attack = attack;
     }

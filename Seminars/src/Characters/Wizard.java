@@ -1,21 +1,16 @@
+package Characters;
+
 import java.util.ArrayList;
 
-public class Priest extends BaseNpc{
-    private ArrayList<BaseNpc> team;
-    public Priest(ArrayList<BaseNpc> team) {
-        super(12, 7, 0, new int[]{-4,-4}, 30, 5, false, true);
-        this.team = team;
+public class Wizard extends BaseNpc {
+    public Wizard(int line, int column, Team team) {
+        super(new Coordinates(line, column), 'W', 17, 12, 0, new int[]{-5, -5}, 30, 9, false, true, team);
     }
 
     @Override
     public void step() {
         // Сначала поиск тиммейта с наименьшим % хп
-        BaseNpc toHeal = team.get(0);
-        for (BaseNpc teammate : team) {
-            if (teammate.getHealth() / teammate.getMaxHealth() < toHeal.getHealth() / toHeal.getMaxHealth()) {
-                toHeal = teammate;
-            }
-        }
+        BaseNpc toHeal = super.team.getNpcWithLeastHP();
 
         // процесс лечения
         toHeal.setHealth(toHeal.getHealth() - this.getDamage()[1]);
