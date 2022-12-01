@@ -1,13 +1,18 @@
 package Characters;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
 
 public abstract class BaseNpc implements BaseBehaviour {
+    // region ---class fields---
     private static int staticCounterID = 1;
-    private final char typeSymbol;
-    protected Team team;
+    private char typeSymbol;
+    protected Team allies;
+    protected Team enemies;
 
     protected Coordinates coordinates;
+    protected int orderPriority;
     protected int npcID;
     protected int attack;
     protected int protection;
@@ -16,26 +21,34 @@ public abstract class BaseNpc implements BaseBehaviour {
     protected double maxHealth;
     protected double health;
     protected int speed;
-    protected boolean delivery;
-    protected boolean magic;
+    protected String status;
+    // endregion
 
-    public BaseNpc(Coordinates coordinates, char typeSymbol, int attack, int protection, int shots,
-                   int[] damage, double maxHealth, int speed, boolean delivery, boolean magic, Team team) {
+    // region ---class methods---
+    public BaseNpc(Coordinates coordinates, char typeSymbol, int attack, int protection,
+                   int[] damage, double maxHealth, int speed, Team allies, Team enemies) {
         this.npcID = staticCounterID++;
         this.typeSymbol = typeSymbol;
         this.coordinates = coordinates;
         this.attack = attack;
         this.protection = protection;
-        this.shots = shots;
+        this.shots = 0;
         this.damage = damage;
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         this.speed = speed;
-        this.delivery = delivery;
-        this.magic = magic;
+        this.status = "ready";
 
-        this.team = team;
-        team.add(this);
+        this.allies = allies;
+        allies.add(this);
+        this.enemies = enemies;
+
+        switch (typeSymbol) {
+            case 'B', 'L' -> orderPriority = 1;
+            case 'S', 'X' -> orderPriority = 2;
+            case 'M', 'W' -> orderPriority = 3;
+            case 'P' -> orderPriority = 4;
+        }
     }
 
     public String getInfo() {
@@ -47,9 +60,7 @@ public abstract class BaseNpc implements BaseBehaviour {
                 ", damage=" + Arrays.toString(damage) +
                 ", health=" + health +
                 ", maxHealth=" + maxHealth +
-                ", speed=" + speed +
-                ", delivery=" + delivery +
-                ", magic=" + magic;
+                ", speed=" + speed;
     }
 
     @Override
@@ -57,11 +68,38 @@ public abstract class BaseNpc implements BaseBehaviour {
         return this.getInfo();
     }
 
+    public static double calculateDamage(BaseNpc attacker, BaseNpc defender) {
+        int x = attacker.attack - defender.protection;
+        if (x > 0) return attacker.damage[1];
+        else if (x < 0) return attacker.damage[0];
+        else return (double) (attacker.damage[0] + attacker.damage[1]) / 2;
+    }
+
+    public void takeDamage(double damage) {
+        health -= damage;
+        if (health <= 0) {
+            health = 0;
+            status = "dead";
+            typeSymbol = '_';
+            allies.remove(this);
+            allies = Team.THE_KILLED;
+        }
+    }
+
+    // endregion
+
+
+
 
     //region ---Getters---
 
+
+    public int getOrderPriority() {
+        return orderPriority;
+    }
+
     public String getTeamColor() {
-        return team.teamColor;
+        return allies.teamColor;
     }
 
     public char getTypeSymbol() {
@@ -104,13 +142,10 @@ public abstract class BaseNpc implements BaseBehaviour {
         return speed;
     }
 
-    public boolean isDelivery() {
-        return delivery;
+    public String getStatus() {
+        return status;
     }
 
-    public boolean isMagic() {
-        return magic;
-    }
     //endregion
 
     //region ---Setters---
@@ -148,12 +183,9 @@ public abstract class BaseNpc implements BaseBehaviour {
         this.speed = speed;
     }
 
-    public void setDelivery(boolean delivery) {
-        this.delivery = delivery;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setMagic(boolean magic) {
-        this.magic = magic;
-    }
     //endregion
 }

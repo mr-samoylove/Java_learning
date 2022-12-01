@@ -1,16 +1,14 @@
 package Characters;
 
-import java.util.ArrayList;
-
 public class Wizard extends BaseNpc {
-    public Wizard(int line, int column, Team team) {
-        super(new Coordinates(line, column), 'W', 17, 12, 0, new int[]{-5, -5}, 30, 9, false, true, team);
+    public Wizard(int line, int column, Team allies, Team enemies) {
+        super(new Coordinates(line, column), 'W', 17, 12, new int[]{-5, -5}, 30, 9, allies, enemies);
     }
 
     @Override
     public void step() {
         // Сначала поиск тиммейта с наименьшим % хп
-        BaseNpc toHeal = super.team.getNpcWithLeastHP();
+        BaseNpc toHeal = super.allies.getNpcWithLeastHP();
 
         // процесс лечения
         toHeal.setHealth(toHeal.getHealth() - this.getDamage()[1]);

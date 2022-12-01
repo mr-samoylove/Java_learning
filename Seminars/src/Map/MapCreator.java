@@ -46,4 +46,12 @@ public class MapCreator {
         }
         // endregion
     }
+
+    public void removeTheDead() {
+        for (BaseNpc[] line : mapMatrix) {
+            for (BaseNpc player : line)
+                if (player != null && player.getStatus().equals("dead"))
+                    mapMatrix[player.getCoordinates().x][player.getCoordinates().y] = null;
+        }
+    }
 }
