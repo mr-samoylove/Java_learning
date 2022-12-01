@@ -37,7 +37,8 @@ public class Main {
 
     public static void makeStep(Team team1, Team team2) {
         for (BaseNpc player : Team.createTurnsOrder(team1, team2)) {
-            player.step();
+            if (!player.getStatus().equals("dead"))
+                player.step();
         }
     }
 
