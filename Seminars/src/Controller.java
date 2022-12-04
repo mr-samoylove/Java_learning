@@ -1,20 +1,17 @@
 import Characters.*;
 import Characters.AbstractTypes.BaseNpc;
 import Characters.AbstractTypes.Team;
-import Map.AnsiColors;
-import Map.MapMatrix;
-import Map.View;
+import Map.*;
 
 import java.util.Random;
 import java.util.Scanner;
 
 public class Controller {
-    public static final int GANG_SIZE = 10;
     public void start() {
         // создаем 2 команды по 10 персонажей, рандомно заполняем команды
         Team teamBlue = new Team(AnsiColors.ANSI_BLUE);
         Team teamGreen = new Team(AnsiColors.ANSI_GREEN);
-        fillTeams(teamBlue, teamGreen, Map.Constants.GANG_SIZE);
+        fillTeams(teamBlue, teamGreen);
 
         // создаем матрицу карты (из указателей на BaseNpc) и ставим туда персонажей
         MapMatrix map = new MapMatrix();
@@ -44,7 +41,8 @@ public class Controller {
         }
     }
 
-    public static void fillTeams(Team team1, Team team2, int gangSize) {
+    public static void fillTeams(Team team1, Team team2) {
+        int gangSize = Constants.GANG_SIZE;
         Random r = new Random();
         for (int i = 0; i < gangSize - 1; i++) {
             switch (r.nextInt(1, 4)) {
