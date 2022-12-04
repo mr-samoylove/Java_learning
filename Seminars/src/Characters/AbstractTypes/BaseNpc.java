@@ -1,8 +1,6 @@
-package Characters;
+package Characters.AbstractTypes;
 
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Map;
 
 public abstract class BaseNpc implements BaseBehaviour {
     // region ---class fields---
@@ -89,8 +87,6 @@ public abstract class BaseNpc implements BaseBehaviour {
     // endregion
 
 
-
-
     //region ---Getters---
 
 
@@ -153,6 +149,11 @@ public abstract class BaseNpc implements BaseBehaviour {
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
+    }
+
+    public void setCoordinates(int x, int y) {
+        this.coordinates.x = x;
+        this.coordinates.y = y;
     }
 
     public void setAttack(int attack) {

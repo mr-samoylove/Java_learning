@@ -1,5 +1,9 @@
 package Characters;
 
+import Characters.AbstractTypes.BaseNpc;
+import Characters.AbstractTypes.Coordinates;
+import Characters.AbstractTypes.Team;
+
 public class Peasant extends BaseNpc {
 
     public Peasant(int line, int column, Team allies, Team enemies) {
@@ -8,6 +12,6 @@ public class Peasant extends BaseNpc {
 
     @Override
     public void step() {
-        status = "ready";
+        if (this.health != 0) status = "ready";
     }
 }

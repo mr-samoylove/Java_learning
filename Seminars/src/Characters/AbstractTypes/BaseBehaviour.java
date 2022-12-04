@@ -1,4 +1,4 @@
-package Characters;
+package Characters.AbstractTypes;
 
 public interface BaseBehaviour {
     void step();

@@ -1,9 +1,8 @@
-package Characters;
+package Characters.AbstractTypes;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 
 public class Team implements Iterable<BaseNpc> {
     public static final Team THE_KILLED = new Team(Map.AnsiColors.ANSI_RED);

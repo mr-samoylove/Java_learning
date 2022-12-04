@@ -1,4 +1,6 @@
-package Characters;
+package Characters.AbstractTypes;
+
+import static java.lang.Math.abs;
 
 public class Coordinates {
     public int x;
@@ -10,7 +12,11 @@ public class Coordinates {
     }
 
     public static double getDistance(Coordinates a, Coordinates b){
-        return Math.hypot(Math.abs(b.x - a.x), Math.abs(b.y - a.y));
+        return Math.hypot(abs(b.x - a.x), abs(b.y - a.y));
+    }
+
+    public boolean isClose(Coordinates b){
+        return abs(x - b.x) <= 1 && abs(y - b.y) <= 1;
     }
 
     public boolean isEqual(Coordinates coord) {
