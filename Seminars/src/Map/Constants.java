@@ -4,9 +4,10 @@ import java.util.Collections;
 
 public class Constants {
     public static final int GANG_SIZE = 10;
-    static final String top10 = formatDiv("a") + String.join("", Collections.nCopies(9, formatDiv("---b"))) + formatDiv("---c");
-    static final String mid10 = formatDiv("d") + String.join("", Collections.nCopies(9, formatDiv("---e"))) + formatDiv("---f");
-    static final String bottom10 = formatDiv("g") + String.join("", Collections.nCopies(9, formatDiv("---h"))) + formatDiv("---i");
+    public static final int MAP_SIZE = 10;
+    static final String top10 = formatDiv("a") + String.join("", Collections.nCopies(MAP_SIZE - 1, formatDiv("---b"))) + formatDiv("---c");
+    static final String mid10 = formatDiv("d") + String.join("", Collections.nCopies(MAP_SIZE - 1, formatDiv("---e"))) + formatDiv("---f");
+    static final String bottom10 = formatDiv("g") + String.join("", Collections.nCopies(MAP_SIZE - 1, formatDiv("---h"))) + formatDiv("---i");
     private static String formatDiv(String str) {
         return str.replace('a', '\u250c')
                 .replace('b', '\u252c')

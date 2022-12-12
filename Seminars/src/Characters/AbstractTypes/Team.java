@@ -23,6 +23,8 @@ public class Team implements Iterable<BaseNpc> {
         team.remove(npc);
     }
 
+    public BaseNpc get(int x) { return team.get(x); }
+
     public BaseNpc getNpcWithLeastHP() {
         BaseNpc toHeal = team.get(0);
         for (BaseNpc teammate : team) {

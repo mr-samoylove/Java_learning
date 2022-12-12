@@ -1,11 +1,10 @@
 package Map;
 
 import Characters.AbstractTypes.BaseNpc;
-import Characters.AbstractTypes.Coordinates;
 import Characters.AbstractTypes.Team;
 
 public class MapMatrix {
-    static BaseNpc[][] mapMatrix = new BaseNpc[10][10];
+    static BaseNpc[][] mapMatrix = new BaseNpc[Constants.MAP_SIZE][Constants.MAP_SIZE];
 
     public void placeTeamOnTheMap(Team team) {
         for (BaseNpc player : team) {

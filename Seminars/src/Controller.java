@@ -15,11 +15,11 @@ public class Controller {
 
         // создаем матрицу карты (из указателей на BaseNpc) и ставим туда персонажей
         MapMatrix map = new MapMatrix();
-        View view = new View();
+        ViewConsole viewConsole = new ViewConsole();
         map.placeTeamOnTheMap(teamBlue);
         map.placeTeamOnTheMap(teamGreen);
 
-        view.draw();
+        viewConsole.draw();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Press ENTER to continue");
@@ -29,7 +29,10 @@ public class Controller {
                 System.exit(0);
 
             makeStep(teamBlue, teamGreen);
-            view.draw();
+            viewConsole.draw();
+
+            while (!LoggerQueue.logQueue.isEmpty())
+                System.out.println(LoggerQueue.logQueue.poll());
             //map.removeTheDead();
         }
     }
@@ -46,19 +49,19 @@ public class Controller {
         Random r = new Random();
         for (int i = 0; i < gangSize - 1; i++) {
             switch (r.nextInt(1, 4)) {
-                case 1 -> new Peasant(i, 0, team1, team2);
-                case 2 -> new Bandit(i, 0, team1, team2);
-                case 3 -> new Sniper(i, 0, team1, team2);
+                case 1 -> new Peasant(100, i, 0, team1, team2);
+                case 2 -> new Bandit(20, i, 0, team1, team2);
+                case 3 -> new Sniper(20, i, 0, team1, team2);
             }
         }
-        new Wizard(9, 0, team1, team2);
+        new Wizard(1, 9, 0, team1, team2);
         for (int i = 0; i < gangSize - 1; i++) {
             switch (r.nextInt(1, 4)) {
-                case 1 -> new Peasant(i, 9, team2, team1);
-                case 2 -> new Lancer(i, 9, team2, team1);
-                case 3 -> new Xbowman(i, 9, team2, team1);
+                case 1 -> new Peasant(100, i, 9, team2, team1);
+                case 2 -> new Lancer(20, i, 9, team2, team1);
+                case 3 -> new Xbowman(20, i, 9, team2, team1);
             }
         }
-        new Monk(9, 9, team2, team1);
+        new Monk(1, 9, 9, team2, team1);
     }
 }

@@ -1,17 +1,23 @@
 package Characters.AbstractTypes;
 
+import Map.AnsiColors;
+import Map.LoggerQueue;
+
 import java.util.Arrays;
 
 public abstract class BaseNpc implements BaseBehaviour {
     // region ---class fields---
     private static int staticCounterID = 1;
-    private char typeSymbol;
+    protected char typeSymbol;
     protected Team allies;
     protected Team enemies;
 
     protected Coordinates coordinates;
     protected int orderPriority;
     protected int npcID;
+    protected String status;
+
+    protected int amount;
     protected int attack;
     protected int protection;
     protected int shots;
@@ -19,15 +25,17 @@ public abstract class BaseNpc implements BaseBehaviour {
     protected double maxHealth;
     protected double health;
     protected int speed;
-    protected String status;
+
     // endregion
 
     // region ---class methods---
     public BaseNpc(Coordinates coordinates, char typeSymbol, int attack, int protection,
-                   int[] damage, double maxHealth, int speed, Team allies, Team enemies) {
+                   int[] damage, double maxHealth, int speed, Team allies, Team enemies, int amount) {
         this.npcID = staticCounterID++;
         this.typeSymbol = typeSymbol;
         this.coordinates = coordinates;
+
+        this.amount = amount;
         this.attack = attack;
         this.protection = protection;
         this.shots = 0;
@@ -67,20 +75,36 @@ public abstract class BaseNpc implements BaseBehaviour {
     }
 
     public static double calculateDamage(BaseNpc attacker, BaseNpc defender) {
+        double res = 0.0;
         int x = attacker.attack - defender.protection;
-        if (x > 0) return attacker.damage[1];
-        else if (x < 0) return attacker.damage[0];
-        else return (double) (attacker.damage[0] + attacker.damage[1]) / 2;
+        if (x > 0) res = attacker.damage[1] * attacker.amount;
+        else if (x < 0) res = attacker.damage[0] * attacker.amount;
+        else res = ((double) (attacker.damage[0] + attacker.damage[1]) / 2) * attacker.amount;
+        return res;
     }
 
-    public void takeDamage(double damage) {
-        health -= damage;
-        if (health <= 0) {
+    public void takeDamage(double damage, BaseNpc attacker) {
+        double groupHP = (amount - 1) * maxHealth + health;
+        groupHP -= damage;
+        // health -= damage;
+        if (groupHP <= 0) {
+            LoggerQueue.logDead(this);
             health = 0;
+            amount = 0;
             status = "dead";
             typeSymbol = '_';
             allies.remove(this);
             allies = Team.THE_KILLED;
+            Team.THE_KILLED.add(this);
+        } else {
+            amount = (int) (groupHP / maxHealth);
+            if (groupHP % maxHealth != 0) {
+                health = groupHP - amount * maxHealth;
+                amount += 1;
+            } else {
+                health = maxHealth;
+            }
+            LoggerQueue.logHit(attacker, this, damage);
         }
     }
 
@@ -89,6 +113,10 @@ public abstract class BaseNpc implements BaseBehaviour {
 
     //region ---Getters---
 
+
+    public int getAmount() {
+        return amount;
+    }
 
     public int getOrderPriority() {
         return orderPriority;
@@ -146,6 +174,9 @@ public abstract class BaseNpc implements BaseBehaviour {
 
     //region ---Setters---
 
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
 
     public void setCoordinates(Coordinates coordinates) {
         this.coordinates = coordinates;
