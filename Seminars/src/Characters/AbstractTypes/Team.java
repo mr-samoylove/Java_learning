@@ -1,11 +1,13 @@
 package Characters.AbstractTypes;
 
+import Map.Constants;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 
 public class Team implements Iterable<BaseNpc> {
-    public static final Team THE_KILLED = new Team(Map.AnsiColors.ANSI_RED);
+    public static final Team THE_KILLED = new Team(Constants.AnsiColors.ANSI_RED);
     public final ArrayList<BaseNpc> team = new ArrayList<>();
     public final String teamColor;
 

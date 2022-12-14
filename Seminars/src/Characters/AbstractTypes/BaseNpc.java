@@ -1,6 +1,5 @@
 package Characters.AbstractTypes;
 
-import Map.AnsiColors;
 import Map.LoggerQueue;
 
 import java.util.Arrays;
@@ -86,7 +85,6 @@ public abstract class BaseNpc implements BaseBehaviour {
     public void takeDamage(double damage, BaseNpc attacker) {
         double groupHP = (amount - 1) * maxHealth + health;
         groupHP -= damage;
-        // health -= damage;
         if (groupHP <= 0) {
             LoggerQueue.logDead(this);
             health = 0;
@@ -183,36 +181,11 @@ public abstract class BaseNpc implements BaseBehaviour {
     }
 
     public void setCoordinates(int x, int y) {
-        this.coordinates.x = x;
-        this.coordinates.y = y;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setProtection(int protection) {
-        this.protection = protection;
-    }
-
-    public void setShots(int shots) {
-        this.shots = shots;
-    }
-
-    public void setDamage(int[] damage) {
-        this.damage = damage;
-    }
-
-    public void setMaxHealth(double maxHealth) {
-        this.maxHealth = maxHealth;
+        this.coordinates = new Coordinates(x, y);
     }
 
     public void setHealth(double health) {
         this.health = health;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
     }
 
     public void setStatus(String status) {

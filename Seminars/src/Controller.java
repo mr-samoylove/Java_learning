@@ -9,16 +9,17 @@ import java.util.Scanner;
 public class Controller {
     public void start() {
         // создаем 2 команды по 10 персонажей, рандомно заполняем команды
-        Team teamBlue = new Team(AnsiColors.ANSI_BLUE);
-        Team teamGreen = new Team(AnsiColors.ANSI_GREEN);
-        fillTeams(teamBlue, teamGreen);
+        Team teamBlue = new Team(Constants.AnsiColors.ANSI_BLUE);
+        Team teamGreen = new Team(Constants.AnsiColors.ANSI_GREEN);
+        fillTeamsBalanced(teamBlue, teamGreen);
 
-        // создаем матрицу карты (из указателей на BaseNpc) и ставим туда персонажей
+        // создаем матрицу карты (из указателей на BaseNpc или null) и ставим туда персонажей
         MapMatrix map = new MapMatrix();
         ViewConsole viewConsole = new ViewConsole();
         map.placeTeamOnTheMap(teamBlue);
         map.placeTeamOnTheMap(teamGreen);
 
+        // начальная отрисовка
         viewConsole.draw();
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -33,7 +34,6 @@ public class Controller {
 
             while (!LoggerQueue.logQueue.isEmpty())
                 System.out.println(LoggerQueue.logQueue.poll());
-            //map.removeTheDead();
         }
     }
 
@@ -44,8 +44,28 @@ public class Controller {
         }
     }
 
-    public static void fillTeams(Team team1, Team team2) {
+    public static void fillTeamsBalanced(Team team1, Team team2) {
         int gangSize = Constants.GANG_SIZE;
+        int mapSize = Constants.MAP_SIZE;
+
+        for (int i = 0; i < gangSize - 3; i++)
+            new Bandit(20, i, 0, team1, team2);
+
+        new Sniper(20, gangSize - 3, 0, team1, team2);
+        new Peasant(100, gangSize - 2, 0, team1, team2);
+        new Wizard(1, gangSize - 1, 0, team1, team2);
+
+        for (int i = 3; i < gangSize; i++)
+            new Lancer(20, i, mapSize - 1, team2, team1);
+
+        new Monk(1, 0, mapSize - 1, team2, team1);
+        new Peasant(100, 1, mapSize - 1, team2, team1);
+        new Xbowman(20, 2, mapSize - 1, team2, team1);
+    }
+
+    public static void fillTeamsRandom(Team team1, Team team2) {
+        int gangSize = Constants.GANG_SIZE;
+        int mapSize = Constants.MAP_SIZE;
         Random r = new Random();
         for (int i = 0; i < gangSize - 1; i++) {
             switch (r.nextInt(1, 4)) {
@@ -54,14 +74,16 @@ public class Controller {
                 case 3 -> new Sniper(20, i, 0, team1, team2);
             }
         }
-        new Wizard(1, 9, 0, team1, team2);
+        new Wizard(1, gangSize - 1, 0, team1, team2);
         for (int i = 0; i < gangSize - 1; i++) {
             switch (r.nextInt(1, 4)) {
-                case 1 -> new Peasant(100, i, 9, team2, team1);
-                case 2 -> new Lancer(20, i, 9, team2, team1);
-                case 3 -> new Xbowman(20, i, 9, team2, team1);
+                case 1 -> new Peasant(100, i, mapSize - 1, team2, team1);
+                case 2 -> new Lancer(20, i, mapSize - 1, team2, team1);
+                case 3 -> new Xbowman(20, i, mapSize - 1, team2, team1);
             }
         }
-        new Monk(1, 9, 9, team2, team1);
+        new Monk(1, gangSize - 1, mapSize - 1, team2, team1);
     }
+
+
 }

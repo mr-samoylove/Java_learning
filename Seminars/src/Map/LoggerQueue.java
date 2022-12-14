@@ -15,10 +15,10 @@ public class LoggerQueue {
                         "%s%c id:%-3d %s hit %s %c id:%-3d %s with %.1f damage",
                         attacker.getTeamColor(),
                         attacker.getTypeSymbol(), attacker.getNpcID(),
-                        AnsiColors.ANSI_YELLOW, defender.getTeamColor(),
+                        Constants.AnsiColors.ANSI_YELLOW, defender.getTeamColor(),
                         defender.getTypeSymbol(), defender.getNpcID(),
-                        AnsiColors.ANSI_YELLOW, damage) +
-                        AnsiColors.ANSI_RESET);
+                        Constants.AnsiColors.ANSI_YELLOW, damage) +
+                        Constants.AnsiColors.ANSI_RESET);
     }
 
     public static void logDead(BaseNpc player) {
@@ -27,8 +27,8 @@ public class LoggerQueue {
                         "%s%c id:%d %s is dead",
                         player.getTeamColor(),
                         player.getTypeSymbol(), player.getNpcID(),
-                        AnsiColors.ANSI_RED) +
-                        AnsiColors.ANSI_RESET);
+                        Constants.AnsiColors.ANSI_RED) +
+                        Constants.AnsiColors.ANSI_RESET);
     }
 
     public static void logHeal(Healers healer, BaseNpc toHeal) {
@@ -36,7 +36,7 @@ public class LoggerQueue {
                 String.format(
                         "%c id:%-3d healed %c id:%-3d",
                         healer.getTypeSymbol(), healer.getNpcID(), toHeal.getTypeSymbol(), toHeal.getNpcID()) +
-                AnsiColors.ANSI_RESET);
+                Constants.AnsiColors.ANSI_RESET);
     }
 
     public static void logResurrect(Healers healer, BaseNpc toHeal) {
@@ -44,6 +44,6 @@ public class LoggerQueue {
                 String.format(
                         "%c id:%-3d resurrected %c id:%-3d",
                         healer.getTypeSymbol(), healer.getNpcID(), toHeal.getTypeSymbol(), toHeal.getNpcID()) +
-                AnsiColors.ANSI_RESET);
+                Constants.AnsiColors.ANSI_RESET);
     }
 }

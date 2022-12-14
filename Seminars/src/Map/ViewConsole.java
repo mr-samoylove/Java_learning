@@ -7,7 +7,7 @@ import java.util.ArrayDeque;
 public class ViewConsole {
     public static int step = 0;
     public void draw() {
-        System.out.println(AnsiColors.ANSI_RED + "Step: " + step++ + AnsiColors.ANSI_RESET);
+        System.out.println(Constants.AnsiColors.ANSI_RED + "Step: " + step++ + Constants.AnsiColors.ANSI_RESET);
         System.out.println(Constants.top10);
 
         // region ---отрисовка---
@@ -18,7 +18,7 @@ public class ViewConsole {
                 if (player == null) System.out.print("|   ");
                 else {
                     playersFoundInTheRow.add(player);
-                    System.out.print("| " + player.getTeamColor() + player.getTypeSymbol() + " " + AnsiColors.ANSI_RESET);
+                    System.out.print("| " + player.getTeamColor() + player.getTypeSymbol() + " " + Constants.AnsiColors.ANSI_RESET);
                 }
             }
             System.out.print("|  ");
@@ -28,7 +28,7 @@ public class ViewConsole {
                 System.out.print(player.getTeamColor() + String.format("%-9s", playerName));
                 System.out.print("x" + String.format("%-5d", player.getAmount()));
                 System.out.print("id=" + String.format("%-3d", player.getNpcID()));
-                System.out.print("hp=" + String.format("%4.1f/%-4.1f    ", player.getHealth(), player.getMaxHealth()) + AnsiColors.ANSI_RESET);
+                System.out.print("hp=" + String.format("%4.1f/%-4.1f    ", player.getHealth(), player.getMaxHealth()) + Constants.AnsiColors.ANSI_RESET);
             }
             System.out.println();
 
