@@ -48,4 +48,14 @@ public class Seminar02_Exceptions {
         System.out.println(a + b);
     }
 
+    public void cantSendEmptyLines() throws RuntimeException {
+        Scanner sc = new Scanner(System.in);
+        String s = null;
+        System.out.println("Введите непустую строку");
+        s = sc.nextLine();
+        if (s.isEmpty())
+            throw new RuntimeException("Пустые строки вводить нельзя.");
+        else
+            System.out.println("Молодец");
+    }
 }

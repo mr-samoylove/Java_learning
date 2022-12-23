@@ -14,5 +14,8 @@ public class Main {
 
         System.out.println("\nЗадание 3:");
         sem2.task3();
+
+        System.out.println("\nЗадание 4:");
+        sem2.cantSendEmptyLines();
     }
 }
